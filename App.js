@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import { StatusBar } from "expo-status-bar";
-import { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -18,25 +16,35 @@ import ProfileScreen from "./screens/Profile";
 
 import { Ionicons, FontAwesome } from "react-native-vector-icons";
 
-// Keep the splash screen visible while we fetch resources
-// SplashScreen.preventAutoHideAsync();
-
 const Tab = createBottomTabNavigator();
 
-// const [fontsLoaded] = useFonts({
-//   // 'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
-// });
-
-// If the font hasn't loaded, show a splash screen instead of a blank page
-// to symbolize that the app is still loading
-// const onLayoutRootView = useCallback(async () => {
-//   if (fontsLoaded) {
-//     await SplashScreen.hideAsync();
-//   }
-// }, [fontsLoaded]);
-
 export default function App() {
+
+  const [fontsLoaded] = useFonts({
+    'Erangle': require('./assets/fonts/ErangleRegular-9Yed2.otf'),
+    'Satoshi-Light': require('./assets/fonts/Satoshi-Light.otf'),
+    'Satoshi-Regular': require('./assets/fonts/Satoshi-Regular.otf'),
+    'Satoshi-Medium': require('./assets/fonts/Satoshi-Medium.otf'),
+    'Satoshi-Bold': require('./assets/fonts/Satoshi-Bold.otf'),
+    'Satoshi-Black': require('./assets/fonts/Satoshi-Black.otf'),
+  });
+
   registerNNPushToken(17429, "sw7AKocBIuRWbGJfZ6U9s7");
+
+  // Show Splash Screen while fonts load
+  useEffect(function() {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, [])
+
+  // Hide Splash Screen when fonts have finished loading
+  if (!fontsLoaded) {
+    return null
+  } else {
+    SplashScreen.hideAsync()
+  }
 
   return (
     <NavigationContainer>

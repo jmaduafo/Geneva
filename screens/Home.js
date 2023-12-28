@@ -1,10 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Ionicons, FontAwesome } from "react-native-vector-icons";
+import Featured from '../components/Home/Featured'
+import PopularTags from '../components/Home/PopularTags'
+import Latest from '../components/Home/Latest'
+import PopularGroups from '../components/Home/PopularGroups'
+import generalStyles from '../constants/generalStyles';
 
 const Home = () => {
   return (
-    <View style={ styles.container }>
-      <Text style={ styles.text }>Home</Text>
+    <View style={ generalStyles.container }>
+      <View style={ styles.setting }>
+        <Ionicons name='settings-outline' size={26} color='#084335'/>
+      </View>
+      <Featured/>
+      <PopularTags/>
+      <Latest/>
+      <PopularGroups/>
     </View>
   )
 }
@@ -12,15 +24,10 @@ const Home = () => {
 export default Home
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FEAD8A',
-    paddingTop: 70,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20
-  },
   text: {
     color: '#084335'
+  },
+  setting: {
+    alignItems: 'flex-end'
   }
 })
